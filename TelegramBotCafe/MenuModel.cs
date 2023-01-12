@@ -16,9 +16,12 @@ namespace TelegramBotCafe
             {
                 List<KeyboardButton>[] buttons = new List<KeyboardButton>[]
                 {
-                    new List<KeyboardButton> { new KeyboardButton("Меню") },
-                    new List<KeyboardButton> { new KeyboardButton("Акции"), new KeyboardButton("Точки") },
-                    new List<KeyboardButton> { new KeyboardButton("Доставка"), new KeyboardButton("Контакти") }
+                    new List<KeyboardButton> 
+                    { 
+                        new KeyboardButton("Меню")                    
+                    },
+                    new List<KeyboardButton> { new KeyboardButton("Авторизація"), new KeyboardButton("Точки") },
+                    new List<KeyboardButton> { new KeyboardButton("Доставка"), new KeyboardButton("Контакти"),  new KeyboardButton("Точки") }
                 };
                 ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(buttons);
                 return keyboardMarkup;
@@ -46,42 +49,7 @@ namespace TelegramBotCafe
 
         }
 
-        public static IReplyMarkup ProductMenuBack
-        {
-            get
-            {
-                List<KeyboardButton>[] buttons = new List<KeyboardButton>[]
-                {
-                    //new List<KeyboardButton> 
-                    //{ 
-                    //    new KeyboardButton("Щось смачне до кави"), 
-                    //    new KeyboardButton("Гарячее") 
-                    //},
-                    //new List<KeyboardButton> { new KeyboardButton("Кальян"), new KeyboardButton("Напої") },
-                    new List<KeyboardButton> { new KeyboardButton("👈 Головне меню")}
-                };
-                ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(buttons);
-                return keyboardMarkup;
-            }
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
 
 
 

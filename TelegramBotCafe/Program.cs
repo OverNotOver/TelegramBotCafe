@@ -7,6 +7,7 @@ namespace TelegramBotCafe
 {
     internal class Program
     {
+
         const string TOKEN = "5819847700:AAG_9gkNtLXkYQc_6QdaLsytndCt-3ozZLA";
         public static TelegramBotClient Over = new TelegramBotClient(TOKEN);
         static void Main(string[] args)
@@ -25,12 +26,15 @@ namespace TelegramBotCafe
 
         static async Task BotTakeMassage(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
+           
             Message message = update.Message;
+
             if (update.Type == UpdateType.Message)
             {
                 if (message.Type == MessageType.Text)
                 {
                     await GetStartBot(message);
+
                 }
                 else if (message.Type == MessageType.Location)
                 {
@@ -44,7 +48,7 @@ namespace TelegramBotCafe
             }
             else if (update.Type == UpdateType.CallbackQuery)
             {
-
+                //await GetJoinToDataBase2(message, query);
                 await GetCallback(update.CallbackQuery, message);
             }
 
@@ -55,13 +59,16 @@ namespace TelegramBotCafe
             string mess = message.Text.ToLower();
             if (mess == "/start")
             {
+                await GetJoinToDataBase2(message);
                 await Over.SendPhotoAsync
                     (
-                        chatId: message.Chat.Id,
+                        chatId: message.Chat.Id, 
                         photo: "https://ae01.alicdn.com/kf/Hf069064de2164e3ba3871b8f8b8dfdc14/Coffee-Shop-Sign-Premium-Coffee-Sign-Mug-Logo-Cafe-Decor-Highest-Quality-Wall-Cup-Decal-Sticker.jpg_Q90.jpg_.webp",
                         message.Text = $"Вітаю {message.From.FirstName} в нашому кафе. Можеш по пить кофе або подивитися на сиськи!",
                         replyMarkup: MenuModel.MainMenu
                     );
+
+
             }
             else if (mess == "меню")
             {
@@ -88,15 +95,11 @@ namespace TelegramBotCafe
                 await Over.SendTextMessageAsync(message.Chat.Id, "Введіть адрес доставки або вставте геолакацію",
                     replyMarkup: MenuModel.MainMenu);
 
-                if (message.Type == MessageType.Text)
-                {
-                    await Over.SendTextMessageAsync(message.From.Id, "Пока доставки немає");
-                }
             }
-            else if (mess == "акции")
+            else if (mess == "авторизація")
             {
-                await Over.SendTextMessageAsync(message.Chat.Id, "Акцій немає",
-                   replyMarkup: MenuModel.MainMenu);
+                await Over.SendTextMessageAsync(message.Chat.Id, "Якщо ви зареєстровані - авторизуйтесь, ні реєструйтесь та отримайте знижку!",
+                   replyMarkup: MenuRegistration.LoginOrJoin);
             }
             else if (mess == "точки")
             {
@@ -108,11 +111,14 @@ namespace TelegramBotCafe
         static async Task GetCallback(CallbackQuery query, Message message)
         {
             await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
-            await GetMenuDrinks(query, message);
 
+            await GetMenuDrinks(query, message);
             await GetAmericano(query, message);
             await GetCapuchino(query, message);
             await GetLatte(query, message);
+
+            await GetJoinToDataBase(message, query);
+
 
             #region
             //string mess = query.Data;
@@ -312,6 +318,77 @@ namespace TelegramBotCafe
             else if (mess == "latte500")
             {
                 await Over.SendTextMessageAsync(query.From.Id, "Введіть кількість", replyMarkup: ProductsInlineInfo.LatteInfoBuy);
+            }
+
+        }
+
+        //public static async Task GetJoin(CallbackQuery query, Message message)
+        //{
+        //    string mess = query.Data;
+
+        //    if(mess == "join")
+        //    {
+        //        await Over.SendTextMessageAsync(query.From.Id, "Консьль");
+
+        //        Console.WriteLine("{0}", query.From.Id);
+        //        Console.WriteLine("{0}", query.From.Username);
+        //    }
+
+
+        //}
+
+        public static async Task GetJoinToDataBase2(Message message)
+        {
+
+            string mess2 = message.Text.ToLower();
+            if (mess2 == "/start")
+            {
+                await Over.SendTextMessageAsync(message.From.Id, "Консoль");
+                using (ContextDb contextDb = new ContextDb())
+                {
+                    if (contextDb.Users.FirstOrDefault(user => user.TelegramId == message.From.Id) == null)
+                    {
+                        BotUsers botUser = new BotUsers()
+                        {
+                            TelegramId = message.From.Id,
+                            UserName = message.From.Username
+                        };
+                        await contextDb.Users.AddAsync(botUser);
+                        await contextDb.SaveChangesAsync();
+                        Console.WriteLine("Запить юзера в базу успешна!");
+                    }
+
+                    Console.WriteLine("Юзер Є уже");
+                }
+
+            }
+
+        }
+
+
+        public static async Task GetJoinToDataBase(Message message, CallbackQuery query)
+        {
+            string mess = query.Data;
+            if (mess == "join")
+            {
+                await Over.SendTextMessageAsync(query.From.Id, "Консьль");
+                using (ContextDb contextDb = new ContextDb())
+                {
+                    if (contextDb.Users.FirstOrDefault(user => user.TelegramId == query.From.Id) == null)
+                    {
+                        BotUsers botUser = new BotUsers()
+                        {
+                            TelegramId = (int)query.From.Id,
+                            UserName = query.From.Username
+                        };
+                        await contextDb.Users.AddAsync(botUser);
+                        await contextDb.SaveChangesAsync();
+                        Console.WriteLine("Запить юзера в базу успешна!");
+                    }
+
+                    Console.WriteLine("Юзер Є уже");
+                }
+
             }
 
         }
