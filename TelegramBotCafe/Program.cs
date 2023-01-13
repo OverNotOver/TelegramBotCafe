@@ -21,12 +21,13 @@ namespace TelegramBotCafe
             Over.StartReceiving(BotTakeMassage, BotTakeError, options, cancel);
 
             Console.ReadKey();
+
         }
 
 
         static async Task BotTakeMassage(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-           
+
             Message message = update.Message;
 
             if (update.Type == UpdateType.Message)
@@ -43,12 +44,12 @@ namespace TelegramBotCafe
                 else
                 {
                     await Over.SendTextMessageAsync(message.Chat.Id, "Я не був створений для цього",
-                        replyMarkup: MenuModel.MainMenu);
+                        replyMarkup: MenuModel.MainMenuUser);
                 }
             }
             else if (update.Type == UpdateType.CallbackQuery)
             {
-                //await GetJoinToDataBase2(message, query);
+
                 await GetCallback(update.CallbackQuery, message);
             }
 
@@ -59,16 +60,12 @@ namespace TelegramBotCafe
             string mess = message.Text.ToLower();
             if (mess == "/start")
             {
-                await GetJoinToDataBase2(message);
-                await Over.SendPhotoAsync
-                    (
-                        chatId: message.Chat.Id, 
-                        photo: "https://ae01.alicdn.com/kf/Hf069064de2164e3ba3871b8f8b8dfdc14/Coffee-Shop-Sign-Premium-Coffee-Sign-Mug-Logo-Cafe-Decor-Highest-Quality-Wall-Cup-Decal-Sticker.jpg_Q90.jpg_.webp",
-                        message.Text = $"Вітаю {message.From.FirstName} в нашому кафе. Можеш по пить кофе або подивитися на сиськи!",
-                        replyMarkup: MenuModel.MainMenu
-                    );
-
-
+                await GetJoinToDataBase(message);
+                await SelectUserPole(message);
+            }
+            else if (mess == "/thx")
+            {
+                await Over.SendTextMessageAsync(message.Chat.Id, "Ваша підтримка приємна для нас. Донат?");
             }
             else if (mess == "меню")
             {
@@ -78,36 +75,35 @@ namespace TelegramBotCafe
             else if (mess == "👈 головне меню")
             {
                 await Over.SendTextMessageAsync(message.Chat.Id, "Головне меню",
-                        replyMarkup: MenuModel.MainMenu);
+                        replyMarkup: MenuModel.MainMenuUser);
             }
-            else if (mess == "напої")
+            else if (mess == "кава/чай/какао")
             {
                 await Over.SendTextMessageAsync(message.Chat.Id, "Можемо запропонувати",
-                    replyMarkup: MenuInline.Drinks);
+                    replyMarkup: MenuInlineDrinks.Drinks);
             }
             else if (mess == "контакти")
             {
                 await Over.SendTextMessageAsync(message.Chat.Id, "м. Суми\r\n\r\n вул. Харківська, 5/1 (Sushi&Pizza)\r\n\r\nЗамовлення на сайті приймаються\r\n Пн - Чт  9:00 - 20:00\r\n Пт - Нд  9:00 - 21:00\r\nбез перерви та вихідних\r\n\r\n +38 (050) 556-44-20",
-                   replyMarkup: MenuModel.MainMenu);
+                   replyMarkup: MenuModel.MainMenuUser);
             }
-            else if (mess == "доставка")
+            else if (mess == "мій профіль")
             {
-                await Over.SendTextMessageAsync(message.Chat.Id, "Введіть адрес доставки або вставте геолакацію",
-                    replyMarkup: MenuModel.MainMenu);
+                await Over.SendTextMessageAsync(message.Chat.Id, $"Вітаю у вашому профелі {message.From.FirstName}, тут вся инфа про аккаунт!",
+                    replyMarkup: MenuModel.MainMenuUser);
 
             }
-            else if (mess == "авторизація")
+            else if (mess == "щось до кави")
             {
-                await Over.SendTextMessageAsync(message.Chat.Id, "Якщо ви зареєстровані - авторизуйтесь, ні реєструйтесь та отримайте знижку!",
-                   replyMarkup: MenuRegistration.LoginOrJoin);
+                await Over.SendTextMessageAsync(message.Chat.Id, "Що до кави бажаєте???",
+                   replyMarkup: MenuInlineFoods.FoodsForCoffee);
             }
             else if (mess == "точки")
             {
                 await Over.SendTextMessageAsync(message.Chat.Id, "Хуйочки :-)",
-                   replyMarkup: MenuModel.MainMenu);
+                   replyMarkup: MenuModel.MainMenuUser);
             }
         }
-
         static async Task GetCallback(CallbackQuery query, Message message)
         {
             await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
@@ -116,8 +112,7 @@ namespace TelegramBotCafe
             await GetAmericano(query, message);
             await GetCapuchino(query, message);
             await GetLatte(query, message);
-
-            await GetJoinToDataBase(message, query);
+            await GetMenuFoods(query);
 
 
             #region
@@ -216,7 +211,6 @@ namespace TelegramBotCafe
             #endregion
 
         }
-
         public static async Task GetMenuDrinks(CallbackQuery query, Message message)
         {
             string mess = query.Data;
@@ -224,17 +218,17 @@ namespace TelegramBotCafe
             if (mess == "coffee")
             {
                 await Over.SendTextMessageAsync(query.From.Id, "Охоче Вам пропонуємо",
-                    replyMarkup: MenuInline.DrinksCoffee);
+                    replyMarkup: MenuInlineDrinks.DrinksCoffee);
             }
             else if (mess == "tea")
             {
                 await Over.SendTextMessageAsync(query.From.Id, "Охоче Вам пропонуємо",
-                    replyMarkup: MenuInline.DrinksTea);
+                    replyMarkup: MenuInlineDrinks.DrinksTea);
             }
             else if (mess == "drinks")
             {
                 await Over.SendTextMessageAsync(query.From.Id, "Охоче Вам пропонуємо",
-                    replyMarkup: MenuInline.DrinksDrinks);
+                    replyMarkup: MenuInlineDrinks.DrinksDrinks);
             }
             //else if (mess == "bear")
             //{
@@ -253,7 +247,26 @@ namespace TelegramBotCafe
             //}
 
         }
+        public static async Task GetMenuFoods(CallbackQuery query)
+        {
+            string mess = query.Data;
 
+            if (mess == "cruasan")
+            {
+                await Over.SendPhotoAsync(chatId: query.From.Id, photo: "https://i.lefood.menu/wp-content/uploads/w_images/2022/12/recept-51199-472x315.webp", "Круасан инфо, ккал 200, ціна 100грн", replyMarkup: MenuInlineFoods.Cruassans);
+            }
+            else if (mess == "makaron")
+            {
+                await Over.SendPhotoAsync(chatId: query.From.Id, photo: "https://tutknow.ru/uploads/posts/2020-06/thumbs/1591119891_1.jpg", "макарон инфо, ккал 200, ціна 100грн", replyMarkup: MenuInlineFoods.Macarons);
+            }
+            else if (mess == "ecler")
+            {
+                await Over.SendPhotoAsync(chatId: query.From.Id, photo: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Ecler.jpg", "еклер инфо, ккал 200, ціна 100грн", replyMarkup: MenuInlineFoods.Eclers);
+            }
+
+
+
+        }
         public static async Task GetAmericano(CallbackQuery query, Message message)
         {
             //await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
@@ -277,7 +290,6 @@ namespace TelegramBotCafe
             }
 
         }
-
         public static async Task GetCapuchino(CallbackQuery query, Message message)
         {
             string mess = query.Data;
@@ -299,7 +311,6 @@ namespace TelegramBotCafe
             }
 
         }
-
         public static async Task GetLatte(CallbackQuery query, Message message)
         {
             string mess = query.Data;
@@ -321,29 +332,13 @@ namespace TelegramBotCafe
             }
 
         }
-
-        //public static async Task GetJoin(CallbackQuery query, Message message)
-        //{
-        //    string mess = query.Data;
-
-        //    if(mess == "join")
-        //    {
-        //        await Over.SendTextMessageAsync(query.From.Id, "Консьль");
-
-        //        Console.WriteLine("{0}", query.From.Id);
-        //        Console.WriteLine("{0}", query.From.Username);
-        //    }
-
-
-        //}
-
-        public static async Task GetJoinToDataBase2(Message message)
+        public static async Task GetJoinToDataBase(Message message)
         {
 
             string mess2 = message.Text.ToLower();
             if (mess2 == "/start")
             {
-                await Over.SendTextMessageAsync(message.From.Id, "Консoль");
+                await Over.SendTextMessageAsync(message.From.Id, "Проверка БД");
                 using (ContextDb contextDb = new ContextDb())
                 {
                     if (contextDb.Users.FirstOrDefault(user => user.TelegramId == message.From.Id) == null)
@@ -351,58 +346,51 @@ namespace TelegramBotCafe
                         BotUsers botUser = new BotUsers()
                         {
                             TelegramId = message.From.Id,
-                            UserName = message.From.Username
+                            UserName = message.From.Username,
+                            UserPole = "User"
                         };
                         await contextDb.Users.AddAsync(botUser);
                         await contextDb.SaveChangesAsync();
-                        Console.WriteLine("Запить юзера в базу успешна!");
+                        await Over.SendTextMessageAsync(message.From.Id, "Запить юзера в базу успешна!");
                     }
-
-                    Console.WriteLine("Юзер Є уже");
+                    await Over.SendTextMessageAsync(message.From.Id, "Юзер уже в базе");
                 }
 
             }
 
         }
-
-
-        public static async Task GetJoinToDataBase(Message message, CallbackQuery query)
+        public static async Task SelectUserPole(Message message)
         {
-            string mess = query.Data;
-            if (mess == "join")
+            await Over.SendTextMessageAsync(message.From.Id, "Соединение... проверка на роль");
+            using (ContextDb contextDb = new ContextDb())
             {
-                await Over.SendTextMessageAsync(query.From.Id, "Консьль");
-                using (ContextDb contextDb = new ContextDb())
-                {
-                    if (contextDb.Users.FirstOrDefault(user => user.TelegramId == query.From.Id) == null)
-                    {
-                        BotUsers botUser = new BotUsers()
-                        {
-                            TelegramId = (int)query.From.Id,
-                            UserName = query.From.Username
-                        };
-                        await contextDb.Users.AddAsync(botUser);
-                        await contextDb.SaveChangesAsync();
-                        Console.WriteLine("Запить юзера в базу успешна!");
-                    }
 
-                    Console.WriteLine("Юзер Є уже");
+                var people = from p in contextDb.Users
+                             select p.UserPole;
+
+                if (people.Contains("Admin"))
+                {
+                    await Over.SendTextMessageAsync(message.From.Id, "Админ тут",
+                        replyMarkup: MenuModel.MainMenuAdmin);
+                }
+                else
+                {
+                    await Over.SendPhotoAsync
+                  (
+                      chatId: message.Chat.Id,
+                      photo: "https://ae01.alicdn.com/kf/Hf069064de2164e3ba3871b8f8b8dfdc14/Coffee-Shop-Sign-Premium-Coffee-Sign-Mug-Logo-Cafe-Decor-Highest-Quality-Wall-Cup-Decal-Sticker.jpg_Q90.jpg_.webp",
+                      message.Text = $"Вітаю {message.From.FirstName} в нашому кафе. Можеш по пить кофе або подивитися на сиськи!",
+                      replyMarkup: MenuModel.MainMenuUser
+                  );
                 }
 
             }
-
         }
-
-
-
-
-
         static async Task GetLocation(Message message)
         {
             await Over.SendTextMessageAsync(message.Chat.Id, "Локація отримана, дурка виїхала",
-                        replyMarkup: MenuModel.MainMenu);
+                        replyMarkup: MenuModel.MainMenuUser);
         }
-
         static async Task BotTakeError(ITelegramBotClient botClient, Exception ex, CancellationToken token)
         {
 

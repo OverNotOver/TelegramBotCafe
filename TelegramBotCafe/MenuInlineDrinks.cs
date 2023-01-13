@@ -7,9 +7,9 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TelegramBotCafe
 {
-    internal static class MenuInline
+    public static class MenuInlineDrinks
     {
-
+       
 
         public static IReplyMarkup Drinks
         {
@@ -55,8 +55,6 @@ namespace TelegramBotCafe
                 return markup;
             }
         }
-
-
         public static IReplyMarkup DrinksBear
         {
             get
@@ -104,6 +102,7 @@ namespace TelegramBotCafe
                         new InlineKeyboardButton("Латте")
                         {
                             CallbackData = "latte"
+                            
                         },
                         new InlineKeyboardButton("Капучино")
                         {
@@ -285,4 +284,7 @@ namespace TelegramBotCafe
 
 
     }
+
+
+
 }
