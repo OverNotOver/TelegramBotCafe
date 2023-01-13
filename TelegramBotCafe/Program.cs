@@ -334,30 +334,31 @@ namespace TelegramBotCafe
         }
         public static async Task GetJoinToDataBase(Message message)
         {
-
-            string mess2 = message.Text.ToLower();
-            if (mess2 == "/start")
+            if(message != null)
             {
-                await Over.SendTextMessageAsync(message.From.Id, "Проверка БД");
-                using (ContextDb contextDb = new ContextDb())
+                string mess2 = message.Text.ToLower();
+                if (mess2 == "/start")
                 {
-                    if (contextDb.Users.FirstOrDefault(user => user.TelegramId == message.From.Id) == null)
+                    await Over.SendTextMessageAsync(message.From.Id, "Проверка БД");
+                    using (ContextDb contextDb = new ContextDb())
                     {
-                        BotUsers botUser = new BotUsers()
+                        if (contextDb.Users.FirstOrDefault(user => user.TelegramId == message.From.Id) == null)
                         {
-                            TelegramId = message.From.Id,
-                            UserName = message.From.Username,
-                            UserPole = "User"
-                        };
-                        await contextDb.Users.AddAsync(botUser);
-                        await contextDb.SaveChangesAsync();
-                        await Over.SendTextMessageAsync(message.From.Id, "Запить юзера в базу успешна!");
+                            BotUsers botUser = new BotUsers()
+                            {
+                                TelegramId = message.From.Id,
+                                UserName = message.From.Username,
+                                UserPole = "User"
+                            };
+                            await contextDb.Users.AddAsync(botUser);
+                            await contextDb.SaveChangesAsync();
+                            await Over.SendTextMessageAsync(message.From.Id, "Запить юзера в базу успешна!");
+                        }
+                        await Over.SendTextMessageAsync(message.From.Id, "Юзер уже в базе");
                     }
-                    await Over.SendTextMessageAsync(message.From.Id, "Юзер уже в базе");
+
                 }
-
             }
-
         }
         public static async Task SelectUserPole(Message message)
         {
@@ -365,10 +366,9 @@ namespace TelegramBotCafe
             using (ContextDb contextDb = new ContextDb())
             {
 
-                var people = from p in contextDb.Users
-                             select p.UserPole;
-
-                if (people.Contains("Admin"))
+                var persom = contextDb.Users
+                    .FirstOrDefault(per => per.TelegramId == message.From.Id);
+                if (persom.UserPole == Role.Admin)
                 {
                     await Over.SendTextMessageAsync(message.From.Id, "Админ тут",
                         replyMarkup: MenuModel.MainMenuAdmin);

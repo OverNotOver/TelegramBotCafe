@@ -11,6 +11,13 @@ namespace TelegramBotCafe
         public Guid Id { get; set; }    
         public long TelegramId { get; set; }    
         public string UserName { get; set; }
-        public string UserPole { get; set; }
+        public Role UserPole { get; set; }
     }
+
+    public enum Role
+    {
+        User,
+        Admin
+    }
+
 }
