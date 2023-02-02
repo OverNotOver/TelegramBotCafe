@@ -85,6 +85,118 @@ namespace TelegramBotCafe.Drinks
                 return markup;
             }
         }
+
+        public static IReplyMarkup KakaoInfo
+        {
+
+            get
+            {
+                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+                {
+                    new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton("400лм - 40грн")
+                        {
+                            CallbackData = "Какао(400)"
+                        },
+                        new InlineKeyboardButton("500лм - 55грн")
+                        {
+                            CallbackData = "Какао(500)"
+                        }
+                    }
+                };
+
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+                return markup;
+            }
+        }
+
+
+
+
+
+
+        public static IReplyMarkup TeaGreenInfo
+        {
+
+            get
+            {
+                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+                {
+                    new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton("300лм - 25грн")
+                        {
+                            CallbackData = "Зелений_чай(300)"
+                        },
+                        new InlineKeyboardButton("500лм - 30грн")
+                        {
+                            CallbackData = "Зелений_чай(500)"
+                        }
+                    }
+                };
+
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+                return markup;
+            }
+        }
+        public static IReplyMarkup TeaBlackInfo
+        {
+
+            get
+            {
+                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+                {
+                    new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton("300лм - 25грн")
+                        {
+                            CallbackData = "Чорний_чай(300)"
+                        },
+                        new InlineKeyboardButton("500лм - 30грн")
+                        {
+                            CallbackData = "Чорний_чай(500)"
+                        }
+                    }
+                };
+
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+                return markup;
+            }
+        }
+        public static IReplyMarkup TeaFruitInfo
+        {
+
+            get
+            {
+                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+                {
+                    new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton("300лм - 25грн")
+                        {
+                            CallbackData = "Фруктовий_чай(300)"
+                        },
+                        new InlineKeyboardButton("500лм - 30грн")
+                        {
+                            CallbackData = "Фруктовий_чай(500)"
+                        }
+                    }
+                };
+
+                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+                return markup;
+            }
+        }
+
+
+
+
+
+
+
+
+
         public static IReplyMarkup BackOrPay
         {
             get

@@ -47,18 +47,18 @@ namespace TelegramBotCafe.Foods
                 {
                     new List<InlineKeyboardButton>
                     {
-                        new InlineKeyboardButton("Зі шоколадом")
+                        new InlineKeyboardButton("З шоколадом")
                         {
-                            CallbackData = "сruassanschoko"
+                            CallbackData = "Круассан(Шоколад)"
 
                         },
-                        new InlineKeyboardButton("Зі малиною")
+                        new InlineKeyboardButton("З малиною")
                         {
-                            CallbackData = "сruassanschokomalina"
+                            CallbackData = "Круассан(Малина)"
                         },
-                        new InlineKeyboardButton("Зі фісашкою")
+                        new InlineKeyboardButton("З фісашкою")
                         {
-                            CallbackData = "сruassanschokofistashka"
+                            CallbackData = "Круассан(Фісташка)"
                         }
                     }
 
@@ -78,18 +78,18 @@ namespace TelegramBotCafe.Foods
                 {
                     new List<InlineKeyboardButton>
                     {
-                        new InlineKeyboardButton("з лохиною")
+                        new InlineKeyboardButton("З лохиною")
                         {
-                            CallbackData = "macaronloh"
+                            CallbackData = "Макарон(Лохина)"
 
                         },
-                        new InlineKeyboardButton("З малиною")
+                        new InlineKeyboardButton("З полуницею")
                         {
-                            CallbackData = "macaronmalina"
+                            CallbackData = "Макарон(Полуниця)"
                         },
-                        new InlineKeyboardButton("З фісашкою")
+                        new InlineKeyboardButton("З черешнею")
                         {
-                            CallbackData = "macaronfistashka"
+                            CallbackData = "Макарон(Черешня)"
                         }
                     }
 
@@ -111,16 +111,16 @@ namespace TelegramBotCafe.Foods
                     {
                         new InlineKeyboardButton("З ананасом")
                         {
-                            CallbackData = "eklerananac"
+                            CallbackData = "Еклер(Ананас)"
 
                         },
                         new InlineKeyboardButton("З полуницею")
                         {
-                            CallbackData = "eklerpolynica"
+                            CallbackData = "Еклер(Полуниця)"
                         },
                         new InlineKeyboardButton("З бананом")
                         {
-                            CallbackData = "eklerbanan"
+                            CallbackData = "Еклер(Банан)"
                         }
                     }
 
@@ -132,27 +132,9 @@ namespace TelegramBotCafe.Foods
 
         }
 
-        public static async Task PayCruassan(CallbackQuery query, Message message)
-        {
+       
 
-            //await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
-            string mess = query.Data;
 
-            if (mess == "сruassanschoko")
-            {
-               
-            }
-            //else if (mess == "сruassanschokomalina")
-            //{
-            //    await Program.Over.SendTextMessageAsync(query.From.Id, "Введіть кількість", replyMarkup: DrinkProductsInlineInfo.AmericanoInfoBuy);
-            //    Program.BasketPayOrder = 100;
 
-            //}
-            //else if (mess == "сruassanschokofistashka")
-            //{
-            //    await Program.Over.SendTextMessageAsync(query.From.Id, "Введіть кількість", replyMarkup: DrinkProductsInlineInfo.AmericanoInfoBuy);
-            //}
-
-        }
     }
 }

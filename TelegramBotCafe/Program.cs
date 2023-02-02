@@ -13,8 +13,7 @@ namespace TelegramBotCafe
     {
 
         const string TOKEN = "5819847700:AAG_9gkNtLXkYQc_6QdaLsytndCt-3ozZLA";
-        //const string TOKEN = "5948996248:AAHgjZT3jZE41iSYwQ0PZ-3yfjawFK6VMqo";
-        //const string TOKEN = "5513823326:AAGbA8qmYHjaz5v5loTjI_aXmNW77JOXoRw";
+
         public static TelegramBotClient Over = new TelegramBotClient(TOKEN);
         public static double BasketPayOrder = 0;
         static void Main(string[] args)
@@ -26,9 +25,6 @@ namespace TelegramBotCafe
             ReceiverOptions options = new ReceiverOptions() { AllowedUpdates = { } };
 
             Over.StartReceiving(BotStartTakeMassage, BotTakeError, options, cancel);
-
-            //GetDataDb.GetInfodb();
-
             Console.ReadKey();
 
             
@@ -87,7 +83,7 @@ namespace TelegramBotCafe
             else if (mess == "корзина")
             {
                 var sum = await Over.ViewBasket(message.Chat.Id);
-                await Over.SendTextMessageAsync(message.Chat.Id, $"Корзина {sum} грн",
+                await Over.SendTextMessageAsync(message.Chat.Id, $"До сплати - {sum} грн",
                         replyMarkup: MenuBasket.MenuInlineBasket);
             }
             else if (mess == "👈 головне меню")
@@ -123,7 +119,7 @@ namespace TelegramBotCafe
             }
             else if (mess == "точки")
             {
-                await Over.SendTextMessageAsync(message.Chat.Id, "Хуйочки :-)",
+                await Over.SendTextMessageAsync(message.Chat.Id, "Точок пока немає :-(",
                    replyMarkup: MenuModel.MainMenuUser);
             }
             else if (mess == MenuModel.GOTO_ADMIN)
@@ -142,14 +138,24 @@ namespace TelegramBotCafe
             await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
 
             await DrinkProducts.GetMenuDrinks(query, message);
+
             await DrinkProducts.GetAmericano(query, message);
             await DrinkProducts.GetCapuchino(query, message);
             await DrinkProducts.GetLatte(query, message);
-            await DrinkProducts.MenuOrPay(query, message);
+            await DrinkProducts.GetKakao(query, message);
+
+            await DrinkProducts.GetGreenTea(query, message);
+            await DrinkProducts.GetBlackTea(query, message);
+            await DrinkProducts.GetFruitTea(query, message);
+
 
             await FoodProducts.GetMenuFoods(query);
 
+            await FoodProducts.GetFood(query,message);
 
+
+
+            await DrinkProducts.MenuOrPay(query, message);
             await MyProfile.GetMyProfile(query, message);
 
             #region

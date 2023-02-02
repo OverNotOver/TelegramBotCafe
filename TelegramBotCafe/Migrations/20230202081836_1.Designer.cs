@@ -12,8 +12,8 @@ using TelegramBotCafe.Database;
 namespace TelegramBotCafe.Migrations
 {
     [DbContext(typeof(ContextDb))]
-    [Migration("20230201231917_6")]
-    partial class _6
+    [Migration("20230202081836_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

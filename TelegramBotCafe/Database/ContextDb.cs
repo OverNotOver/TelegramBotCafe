@@ -24,7 +24,7 @@ namespace TelegramBotCafe.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Koffee;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=CoffeeDb;Trusted_Connection=True;");
         }
     }
 }

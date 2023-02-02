@@ -25,7 +25,7 @@ namespace TelegramBotCafe.Services
                 OrderId = Guid.NewGuid().ToString(),
                 ActionPayment = LiqPayRequestActionPayment.Pay,
                 Action = LiqPayRequestAction.InvoiceSend,
-                Email = "bisnesbrend@gmail.com",
+                Email = "kolya.ua921@gmail.com",
                 Goods = new List<LiqPayRequestGoods>()
             };
 

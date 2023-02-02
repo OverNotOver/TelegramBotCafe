@@ -26,69 +26,13 @@ namespace TelegramBotCafe.Drinks
                         {
                             CallbackData = "tea"
                         }
-                        //,
-                        // new InlineKeyboardButton("Алкоголь - НІ")
-                        //{
-                        //    CallbackData = "drinks"
-                        //},
-                    }
-                    //,
-                    //new List<InlineKeyboardButton>
-                    //{
-                    //    new InlineKeyboardButton("Пиво")
-                    //    {
-                    //        CallbackData = "bear"
-                    //    },
-                    //    new InlineKeyboardButton("Коктелі")
-                    //    {
-                    //        CallbackData = "koktels"
-                    //    },
-                    //      new InlineKeyboardButton("Щось міцніше")
-                    //    {
-                    //        CallbackData = "others"
-                    //    },
-                    //}
-                };
-                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
-                return markup;
-            }
-        }
-        public static IReplyMarkup DrinksBear
-        {
-            get
-            {
-                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
-                {
-
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Темне")
-                        {
-                            CallbackData = "bear_black"
-                        },
-                        new InlineKeyboardButton("Світле")
-                        {
-                            CallbackData = "bear_white"
-                        },
-
-                    },
-                     new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Bud")
-                        {
-                            CallbackData = "bear_bud"
-                        },
-                        new InlineKeyboardButton("Львівське 1715")
-                        {
-                            CallbackData = "bear_1715"
-                        },
-
                     }
                 };
                 InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
                 return markup;
             }
         }
+
         public static IReplyMarkup DrinksCoffee
         {
             get
@@ -100,7 +44,6 @@ namespace TelegramBotCafe.Drinks
                         new InlineKeyboardButton("Латте")
                         {
                             CallbackData = "latte"
-
                         },
                         new InlineKeyboardButton("Капучино")
                         {
@@ -109,26 +52,12 @@ namespace TelegramBotCafe.Drinks
                         new InlineKeyboardButton("Американо")
                         {
                             CallbackData = "americano"
+                        },
+                        new InlineKeyboardButton("Какао")
+                        {
+                            CallbackData = "kakao"
                         }
                     }
-                    //,
-                    //new List<InlineKeyboardButton>
-                    //{
-                    //    new InlineKeyboardButton("Еспрессо")
-                    //    {
-                    //        CallbackData = "latte"
-                    //    },
-                    //    new InlineKeyboardButton("Какао")
-                    //    {
-                    //        CallbackData = "kakao"
-                    //    }
-                    //    //,
-                    //    //new InlineKeyboardButton("Айс Латте")
-                    //    //{
-                    //    //    CallbackData = "icelatte"
-                    //    //}
-                    //}
-
               };
 
                 InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
@@ -164,117 +93,149 @@ namespace TelegramBotCafe.Drinks
             }
 
         }
-        public static IReplyMarkup DrinksDrinks
-        {
-            get
-            {
-                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
-                {
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Мінеральна вода")
-                        {
-                            CallbackData = "mineralwater"
-                        },
-                        new InlineKeyboardButton("7Up")
-                        {
-                            CallbackData = "7up"
-                        },
-                        new InlineKeyboardButton("Pepsi")
-                        {
-                            CallbackData = "pepsi"
-                        }
-                    }
-              };
 
-                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
-                return markup;
-            }
+        #region
+        //public static IReplyMarkup DrinksDrinks
+        //{
+        //    get
+        //    {
+        //        List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+        //        {
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Мінеральна вода")
+        //                {
+        //                    CallbackData = "mineralwater"
+        //                },
+        //                new InlineKeyboardButton("7Up")
+        //                {
+        //                    CallbackData = "7up"
+        //                },
+        //                new InlineKeyboardButton("Pepsi")
+        //                {
+        //                    CallbackData = "pepsi"
+        //                }
+        //            }
+        //      };
 
-        }
-        public static IReplyMarkup DrinksKoktels
-        {
-            get
-            {
-                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
-                {
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Байрактар")
-                        {
-                            CallbackData = "ddd"
+        //        InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+        //        return markup;
+        //    }
 
-                        },
+        //}
+        //public static IReplyMarkup DrinksKoktels
+        //{
+        //    get
+        //    {
+        //        List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+        //        {
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Байрактар")
+        //                {
+        //                    CallbackData = "ddd"
 
-                    },
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Джавелін")
-                        {
-                            CallbackData = "ddd"
-                        },
+        //                },
 
-                    },
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Мохіто")
-                        {
-                            CallbackData = "ddd"
-                        },
+        //            },
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Джавелін")
+        //                {
+        //                    CallbackData = "ddd"
+        //                },
 
-                    },
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Секс на пляжі")
-                        {
-                            CallbackData = "ddd"
-                        },
+        //            },
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Мохіто")
+        //                {
+        //                    CallbackData = "ddd"
+        //                },
 
-                    },
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("О кровавлена Мері")
-                        {
-                            CallbackData = "ddd"
-                        },
+        //            },
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Секс на пляжі")
+        //                {
+        //                    CallbackData = "ddd"
+        //                },
 
-                    }
-                };
+        //            },
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("О кровавлена Мері")
+        //                {
+        //                    CallbackData = "ddd"
+        //                },
 
-                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
-                return markup;
-            }
+        //            }
+        //        };
 
-        }
-        public static IReplyMarkup DrinksOther
-        {
-            get
-            {
-                List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
-                {
-                    new List<InlineKeyboardButton>
-                    {
-                        new InlineKeyboardButton("Пока немає, назад?")
-                        {
-                            CallbackData = "ddd"
-                        },
+        //        InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+        //        return markup;
+        //    }
 
-                    }
-                };
+        //}
+        //public static IReplyMarkup DrinksOther
+        //{
+        //    get
+        //    {
+        //        List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+        //        {
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Пока немає, назад?")
+        //                {
+        //                    CallbackData = "ddd"
+        //                },
 
-                InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
-                return markup;
-            }
+        //            }
+        //        };
 
-        }
+        //        InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+        //        return markup;
+        //    }
 
+        //}
+        //public static IReplyMarkup DrinksBear
+        //{
+        //    get
+        //    {
+        //        List<InlineKeyboardButton>[] buttons = new List<InlineKeyboardButton>[]
+        //        {
 
+        //            new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Темне")
+        //                {
+        //                    CallbackData = "bear_black"
+        //                },
+        //                new InlineKeyboardButton("Світле")
+        //                {
+        //                    CallbackData = "bear_white"
+        //                },
 
+        //            },
+        //             new List<InlineKeyboardButton>
+        //            {
+        //                new InlineKeyboardButton("Bud")
+        //                {
+        //                    CallbackData = "bear_bud"
+        //                },
+        //                new InlineKeyboardButton("Львівське 1715")
+        //                {
+        //                    CallbackData = "bear_1715"
+        //                },
 
+        //            }
+        //        };
+        //        InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
+        //        return markup;
+        //    }
+        //}
 
+        #endregion
 
     }
-
-
-
 }
