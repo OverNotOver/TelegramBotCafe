@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace TelegramBotCafe
+namespace TelegramBotCafe.Drinks
 {
     public static class MenuInlineDrinks
     {
-       
-
         public static IReplyMarkup Drinks
         {
             get
@@ -102,7 +100,7 @@ namespace TelegramBotCafe
                         new InlineKeyboardButton("Латте")
                         {
                             CallbackData = "latte"
-                            
+
                         },
                         new InlineKeyboardButton("Капучино")
                         {
@@ -269,14 +267,6 @@ namespace TelegramBotCafe
             }
 
         }
-
-
-
-
-
-
-
-
 
 
 

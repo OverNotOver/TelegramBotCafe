@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
+using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
+using TelegramBotCafe.Drinks;
 
-namespace TelegramBotCafe
+namespace TelegramBotCafe.Foods
 {
     public static class MenuInlineFoods
     {
@@ -58,7 +61,7 @@ namespace TelegramBotCafe
                             CallbackData = "сruassanschokofistashka"
                         }
                     }
-                   
+
               };
 
                 InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
@@ -126,6 +129,29 @@ namespace TelegramBotCafe
                 InlineKeyboardMarkup markup = new InlineKeyboardMarkup(buttons);
                 return markup;
             }
+
+        }
+
+        public static async Task PayCruassan(CallbackQuery query, Message message)
+        {
+
+            //await Over.DeleteMessageAsync(query.From.Id, query.Message.MessageId);
+            string mess = query.Data;
+
+            if (mess == "сruassanschoko")
+            {
+               
+            }
+            //else if (mess == "сruassanschokomalina")
+            //{
+            //    await Program.Over.SendTextMessageAsync(query.From.Id, "Введіть кількість", replyMarkup: DrinkProductsInlineInfo.AmericanoInfoBuy);
+            //    Program.BasketPayOrder = 100;
+
+            //}
+            //else if (mess == "сruassanschokofistashka")
+            //{
+            //    await Program.Over.SendTextMessageAsync(query.From.Id, "Введіть кількість", replyMarkup: DrinkProductsInlineInfo.AmericanoInfoBuy);
+            //}
 
         }
     }

@@ -5,11 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBotCafe
+namespace TelegramBotCafe.Database
 {
     public class ContextDb : DbContext
     {
         public DbSet<BotUsers> Users { get; set; }
+        public DbSet<ProductsCart> UserCart { get; set; }
+        public DbSet<Orders> Orders { get; set; }
+        public DbSet<ProductsOrder> OrderProducts { get; set; }
+        public DbSet<ProductsCafe> Products { get; set; }
+        
+
+
         public ContextDb()
         {
             Database.EnsureCreated();
@@ -17,7 +24,7 @@ namespace TelegramBotCafe
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=TelegramCoffee;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Koffee;Trusted_Connection=True;");
         }
     }
 }
